@@ -6,8 +6,8 @@
   <title>Eyelash Salon | 高品質なまつ毛エクステ専門サロン</title>
   <meta name="description" content="自まつ毛に優しい最高級セーブル使用。経験豊富なアイリストによる、安全で美しいまつ毛エクステをご提供します。">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Comfortaa:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
@@ -19,7 +19,7 @@
     font-family: 'Klee One', serif !important;
   }
   .en-text {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Comfortaa', sans-serif !important;
   }
 
   html {
@@ -56,7 +56,7 @@
     visibility: visible;
   }
   
-  /* Hamburger */
+  /* Hamburger - セレクタを具体化 */
   .hamburger {
     width: 30px;
     height: 20px;
@@ -65,7 +65,7 @@
     z-index: 101;
   }
   
-  .hamburger span {
+  .hamburger > span {
     position: absolute;
     width: 100%;
     height: 2px;
@@ -121,30 +121,34 @@
     object-fit: cover;
   }
   
-  /* Text Animation */
-  .text-slide {
-    opacity: 0;
-  }
-
-  .text-slide span {
+  /* 文字アニメーション用スタイル */
+  .char-animation {
     display: inline-block;
     opacity: 0;
     transform: translateX(-20px);
-  }
-
-  .text-slide.visible {
-    opacity: 1;
-    visibility: visible;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
   
+  .char-animation.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* 境界線アニメーション */
   .border-line {
     transform-origin: left;
     opacity: 0;
     width: 0;
+    transition: opacity 1s ease, width 1s ease;
   }
   
-  /* Scroll Indicator */
-  .scroll-indicator {
+  .border-line.visible {
+    opacity: 1;
+    width: 100%;
+  }
+  
+  /* Scroll Indicator - セレクタを具体化 */
+  .scroll-indicator.hero-scroll {
     position: absolute;
     bottom: 40px;
     left: 50%;
@@ -156,7 +160,7 @@
     opacity: 0.7;
   }
   
-  .scroll-indicator::before {
+  .scroll-indicator.hero-scroll::before {
     content: '';
     position: absolute;
     top: 8px;
@@ -209,10 +213,6 @@
       padding: 0 1rem;
     }
   
-    #hero-subtitle {
-      font-size: 1.125rem;
-      padding: 0 1rem;
-    }
   }
   
   /* Additional Animation Classes */
@@ -286,10 +286,10 @@
   <div class="menu-overlay flex items-center justify-center">
     <nav class="text-white text-center">
       <ul class="space-y-8">
-        <li><a href="#" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Roboto', sans-serif !important;">HOME</a></li>
-        <li><a href="#menu" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Roboto', sans-serif !important;">MENU</a></li>
-        <li><a href="#about" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Roboto', sans-serif !important;">ABOUT</a></li>
-        <li><a href="#reserve" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Roboto', sans-serif !important;">RESERVE</a></li>
+        <li><a href="#" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Comfortaa', sans-serif !important;">HOME</a></li>
+        <li><a href="#menu" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Comfortaa', sans-serif !important;">MENU</a></li>
+        <li><a href="#about" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Comfortaa', sans-serif !important;">ABOUT</a></li>
+        <li><a href="#reserve" class="text-4xl hover:text-gray-400 transition-colors" style="font-family: 'Comfortaa', sans-serif !important;">RESERVE</a></li>
       </ul>
     </nav>
   </div>
@@ -313,12 +313,13 @@
     <!-- Hero Content -->
     <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-white pointer-events-none">
       <div class="text-center">
-        <h1 id="hero-title" class="text-6xl font-bold mb-6 text-slide" style="font-family: 'Roboto', sans-serif !important;">Your Beauty, Enhanced</h1>
-        <p id="hero-subtitle" class="text-xl text-slide mb-4 ja-text">自然な美しさを引き出す、上質なまつ毛エクステ</p>
+        <div id="hero-title-container" class="relative">
+          <h1 id="hero-title" class="text-6xl font-bold mb-6 invisible" style="font-family: 'Comfortaa', sans-serif !important; visibility: hidden; opacity: 0;">Your Beauty, Enhanced</h1>
+        </div>
         <div class="border-line w-0 h-[2px] bg-white mx-auto"></div>
       </div>
     </div>
-    <div class="scroll-indicator"></div>
+    <div class="scroll-indicator hero-scroll"></div>
   </section>
 
   <!-- Features Section -->
@@ -356,7 +357,7 @@
 
   <!-- Menu Section -->
   <section id="menu" class="py-20 px-6 bg-white">
-    <h2 class="text-4xl font-bold mb-12 text-center split-text" style="font-family: 'Roboto', sans-serif !important;">Menu & Case</h2>
+    <h2 class="text-4xl font-bold mb-12 text-center split-text" style="font-family: 'Comfortaa', sans-serif !important;">Menu & Case</h2>
     
     <div class="max-w-7xl mx-auto space-y-20">
       <!-- パリジェンヌ/まつ毛パーマ -->
@@ -408,7 +409,7 @@
   <section id="about" class="py-20 px-6 bg-black text-white">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="order-2 md:order-1">
-        <h2 class="text-4xl font-bold mb-12 split-text" style="font-family: 'Roboto', sans-serif !important;">About Us</h2>
+        <h2 class="text-4xl font-bold mb-12 split-text" style="font-family: 'Comfortaa', sans-serif !important;">About Us</h2>
         <p class="text-lg leading-relaxed mb-8 split-text ja-text">
           当店は、完全予約制のプライベートサロンとなっております。<br/>
           お客様にくつろぎながら施術をうけていただけます。
@@ -427,7 +428,7 @@
   <!-- Reserve Section -->
   <section id="reserve" class="py-20 px-6">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12 split-text" style="font-family: 'Roboto', sans-serif !important;">Reserve</h2>
+      <h2 class="text-4xl font-bold mb-12 split-text" style="font-family: 'Comfortaa', sans-serif !important;">Reserve</h2>
       <p class="text-lg mb-8 ja-text">Instagram、LINE、ホットペッパーからご予約を承っております。</p>
       <div class="space-y-6">
         <a href="https://beauty.hotpepper.jp/kr/slnH000721938/" class="block w-full md:w-auto md:inline-block ml-0 md:ml-4 border-2 border-black px-8 py-4 text-lg hover:bg-black hover:text-white transition-colors">
@@ -446,7 +447,7 @@
     <!-- Footer -->
   <footer class="bg-black text-white py-8">
     <div class="container mx-auto text-center text-sm">
-      <p style="font-family: 'Roboto', sans-serif !important;">&copy; 2025 Coo. All rights reserved.</p>
+      <p style="font-family: 'Comfortaa', sans-serif !important;">&copy; 2025 Coo. All rights reserved.</p>
     </div>
   </footer>
 
@@ -463,53 +464,64 @@
     const slides = document.querySelectorAll('.hero-slide');
     let currentSlide = 0;
   
-    // テキストを分割する関数
+    // テキストを分割する関数 - 使用しない
+    /*
     function splitText(element) {
       const text = element.textContent;
       element.textContent = '';
       return text.split('').map(char => {
         const span = document.createElement('span');
+        span.className = 'text-span'; // 具体的なクラス名を使用
         span.textContent = char === ' ' ? '\u00A0' : char;
         element.appendChild(span);
         return span;
       });
     }
+    */
   
     // ヒーローセクションのテキストアニメーション
     function animateHeroText() {
+      const titleContainer = document.getElementById('hero-title-container');
       const title = document.getElementById('hero-title');
-      const subtitle = document.getElementById('hero-subtitle');
       
-      if (!title) return;
-
-      gsap.set(title, {
-        opacity: 1,
-        visibility: 'visible'
-      });
-
-      const titleChars = splitText(title);
-
-      gsap.set(titleChars, {
-        opacity: 0,
-        x: -20
-      });
+      if (!title || !titleContainer) return;
       
-      const tl = gsap.timeline();
+      // 元のテキストを取得
+      const text = title.textContent;
       
-      tl.to(titleChars, {
-        opacity: 1,
-        x: 0,
-        duration: 0.5,
-        stagger: 0.03,
-        ease: 'power2.out'
-      })
-      .to('.border-line', {
-        opacity: 1,
-        width: "100%",
-        duration: 1,
-        ease: 'power2.inOut',
-        delay: 0.1
-      }, ">+0.2");
+      // 文字コンテナのスタイル設定
+      titleContainer.innerHTML = ''; // コンテナをクリア
+      titleContainer.style.fontFamily = 'Comfortaa, sans-serif';
+      titleContainer.style.fontSize = '3.75rem'; // text-6xl
+      titleContainer.style.fontWeight = 'bold';
+      titleContainer.style.marginBottom = '1.5rem'; // mb-6
+      
+      // 文字ごとに分割して要素を作成
+      for (let i = 0; i < text.length; i++) {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+        charSpan.className = 'char-animation';
+        charSpan.style.transitionDelay = `${i * 30}ms`; // 文字ごとに遅延を設定
+        titleContainer.appendChild(charSpan);
+      }
+      
+      // 境界線の要素取得
+      const borderLine = document.querySelector('.border-line');
+      
+      // 少し遅延を入れてアニメーションを開始
+      setTimeout(() => {
+        // 全ての文字に可視クラスを適用
+        document.querySelectorAll('.char-animation').forEach(char => {
+          char.classList.add('visible');
+        });
+        
+        // 境界線のアニメーションは文字アニメーション後に開始
+        setTimeout(() => {
+          if (borderLine) {
+            borderLine.classList.add('visible');
+          }
+        }, text.length * 30 + 200); // 全文字のアニメーション完了後に境界線を表示
+      }, 50);
     }
 
     // スライドショーの初期化と制御
@@ -548,12 +560,14 @@
     // ローダーとアニメーション
     window.addEventListener('load', () => {
       const loader = document.querySelector('.loader');
+      // ロード完了時の処理
       gsap.to(loader, {
         opacity: 0,
         duration: 1,
         onComplete: () => {
           loader.style.display = 'none';
-          animateHeroText();
+          // ローダーが消えた後にアニメーションを開始
+          setTimeout(animateHeroText, 100); // 少し遅延をつけてタイミングを調整
         }
       });
     });
