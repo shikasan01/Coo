@@ -208,7 +208,7 @@
     }
   
     #hero-title {
-      display: none;
+      opacity: 0;
       font-size: 2.5rem;
       padding: 0 1rem;
     }
@@ -483,6 +483,8 @@
     function animateHeroText() {
       const titleContainer = document.getElementById('hero-title-container');
       const title = document.getElementById('hero-title');
+
+      if (window.innerWidth <= 768) return;
       
       if (!title || !titleContainer) return;
       
